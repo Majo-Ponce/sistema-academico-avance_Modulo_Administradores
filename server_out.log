@@ -1,0 +1,50 @@
+INFO:     127.0.0.1:51927 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51928 - "GET /api/v1/panel-docente/mis-secciones HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51929 - "GET /api/v1/panel-docente/mis-estudiantes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51930 - "GET /api/v1/panel-docente/resumen HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51931 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51932 - "GET /api/v1/docentes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51933 - "GET /api/v1/docentes HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51934 - "GET /api/v1/panel-docente/mis-secciones HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:51935 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61630 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50550 - "GET /api/v1/carreras?solo_activas=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50548 - "GET /api/v1/reportes/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50554 - "GET /api/v1/estudiantes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64226 - "GET /api/v1/docentes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65365 - "GET /api/v1/docentes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55441 - "GET /app.js?v=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58954 - "GET /api/v1/carreras?solo_activas=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58955 - "GET /api/v1/estudiantes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58956 - "GET /api/v1/reportes/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63033 - "GET /api/v1/docentes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62087 - "GET /index.html?nocache=1793033838753 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63792 - "GET /auth.js?v=4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63793 - "GET /app.js?v=4 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51859 - "GET /api/v1/reportes/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51860 - "GET /api/v1/estudiantes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51861 - "GET /api/v1/carreras?solo_activas=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60279 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60187 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56111 - "GET /index.html?nocache=1793033838753 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:64303 - "GET /api/v1/estudiantes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64302 - "GET /api/v1/carreras?solo_activas=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64304 - "GET /api/v1/reportes/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64008 - "GET /api/v1/docentes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59742 - "PUT /api/v1/docentes/5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58831 - "GET /api/v1/docentes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58832 - "GET /api/v1/reportes/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52330 - "GET /index.html?nc=1793033911777 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55099 - "GET /app.js?v=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55100 - "GET /auth.js?v=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58612 - "GET /api/v1/reportes/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58616 - "GET /api/v1/carreras?solo_activas=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58613 - "GET /api/v1/estudiantes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60407 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53443 - "POST /api/v1/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55124 - "GET /index.html?nc=1793033911777 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:58354 - "GET /app.js?v=5 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:50142 - "GET /api/v1/reportes/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50145 - "GET /api/v1/carreras?solo_activas=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50150 - "GET /api/v1/estudiantes HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63244 - "GET /api/v1/docentes HTTP/1.1" 200 OK

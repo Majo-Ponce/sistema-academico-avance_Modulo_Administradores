@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema Académico</title>
+  <link rel="stylesheet" href="/styles.css?v=25" />
+</head>
+<body>
+
+  <section id="vista-login" class="vista vista-login">
+    <div class="tarjeta-login">
+      <div class="logo-institucional-marco">
+        <img
+          class="logo-institucional-login"
+          src="https://uph.edu.hn/wp-content/uploads/2024/10/logo-uph-300x85.png"
+          alt="Universidad Politécnica de Honduras"
+          width="220"
+          height="63"
+          fetchpriority="high"
+        />
+      </div>
+      <p class="subtitulo">Inicia sesión para ver el panel general.</p>
+
+      <form id="formulario-login">
+        <label for="campo-usuario">Correo electrónico o usuario</label>
+        <input id="campo-usuario" type="text" autocomplete="username" required />
+
+        <label for="campo-clave">Contraseña</label>
+        <input id="campo-clave" type="password" autocomplete="current-password" required />
+
+        <button type="submit" id="boton-entrar">Iniciar sesión</button>
+      </form>
+
+      <p id="mensaje-login" class="mensaje-error" aria-live="polite"></p>
+
+      <div class="ayuda-usuarios">
+        <p>Contraseñas:</p>
+        <p><code>password.admin</code></p>
+        <p><code>password.docente</code></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="vista-dashboard" class="vista vista-dashboard oculto">
+    <nav class="menu-principal" aria-label="Menú principal">
+    </nav>
+
+    <header class="barra-superior">
+      <div>
+        <p class="etiqueta">SISTEMA ACADÉMICO</p>
+        <h1 id="titulo-bienvenida">Panel general</h1>
+      </div>
+      <div class="acciones-barra">
+        <span id="chip-usuario" class="chip-usuario"></span>
+        <button id="boton-administradores" class="boton-secundario oculto" type="button">Administradores</button>
+        <button id="boton-actualizar" class="boton-secundario">Actualizar</button>
+        <button id="boton-salir" class="boton-secundario">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <section id="modal-cambio-password" class="modal-obligatorio oculto" role="dialog" aria-modal="true" aria-labelledby="titulo-cambio-password">
+      <form id="formulario-cambio-password" class="tarjeta modal-contenido">
+        <p class="etiqueta">SEGURIDAD DE LA CUENTA</p>
+        <h2 id="titulo-cambio-password">Actualice su contraseña</h2>
+        <p>Debe reemplazar la contraseña inicial antes de continuar.</p>
+        <div class="campo">
+          <label for="clave-actual">Contraseña actual</label>
+          <input id="clave-actual" type="password" autocomplete="current-password" required />
+        </div>
+        <div class="campo">
+          <label for="clave-nueva">Nueva contraseña</label>
+          <input id="clave-nueva" type="password" minlength="8" maxlength="100" autocomplete="new-password" required />
+        </div>
+        <div class="campo">
+          <label for="clave-nueva-confirmacion">Confirmar nueva contraseña</label>
+          <input id="clave-nueva-confirmacion" type="password" minlength="8" maxlength="100" autocomplete="new-password" required />
+        </div>
+        <button id="boton-cambiar-password" type="submit">Guardar contraseña</button>
+        <p id="mensaje-cambio-password" class="mensaje-error" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <main class="contenido">
+      <section class="fila-tarjetas solo-admin" id="fila-tarjetas" aria-label="Indicadores generales">
+      </section>
+
+      <p id="texto-periodo" class="texto-periodo solo-admin"></p>
+
+      <!-- ===================== PANEL DEL DOCENTE ===================== -->
+      <div id="modulo-inicio" class="modulo oculto">
+        <section class="fila-tarjetas" id="fila-tarjetas-docente" aria-label="Resumen docente"></section>
+        <p id="texto-periodo-docente" class="texto-periodo"></p>
+        <section class="tarjeta perfil-docente">
+          <div class="encabezado-perfil-docente">
+            <div>
+              <p class="etiqueta">PERFIL DOCENTE</p>
+              <h2 id="nombre-perfil-docente">Información del docente</h2>
+            </div>
+            <button type="button" class="boton-secundario" id="boton-editar-perfil-docente">Editar</button>
+          </div>
+
+          <form id="formulario-perfil-docente" class="contenido-perfil-docente">
+            <div class="datos-perfil-docente">
+              <h3>INFORMACIÓN PERSONAL</h3>
+              <div class="rejilla-perfil-docente">
+                <div class="campo" id="campo-nombre-completo-perfil">
+                  <label for="perfil-docente-nombre-completo">Nombre completo</label>
+                  <input id="perfil-docente-nombre-completo" type="text" readonly />
+                </div>
+                <div class="campo oculto campos-nombres-edicion">
+                  <label for="perfil-docente-nombres">Nombres</label>
+                  <input id="perfil-docente-nombres" type="text" minlength="2" maxlength="80" required disabled />
+                </div>
+                <div class="campo oculto campos-nombres-edicion">
+                  <label for="perfil-docente-apellidos">Apellidos</label>
+                  <input id="perfil-docente-apellidos" type="text" minlength="2" maxlength="80" required disabled />
+                </div>
+                <div class="campo">
+                  <label for="perfil-docente-identidad">Número de Identidad</label>
+                  <input id="perfil-docente-identidad" type="text" maxlength="30" disabled />
+                </div>
+                <div class="campo">
+                  <label for="perfil-docente-nacimiento">Fecha de Nacimiento</label>
+                  <input id="perfil-docente-nacimiento" type="date" disabled />
+                </div>
+                <div class="campo">
+                  <label for="perfil-docente-edad">Edad</label>
+                  <input id="perfil-docente-edad" type="text" value="No disponible" readonly />
+                </div>
+                <div class="campo">
+                  <label for="perfil-docente-nacionalidad">Nacionalidad</label>
+                  <input id="perfil-docente-nacionalidad" type="text" maxlength="80" disabled />
+                </div>
+                <div class="campo">
+                  <label for="perfil-docente-tipo-nacionalidad">Tipo de Nacionalidad</label>
+                  <input id="perfil-docente-tipo-nacionalidad" type="text" maxlength="80" disabled />
+                </div>
+                <div class="campo">
+                  <label for="perfil-docente-ingreso">Fecha de Ingreso</label>
+                  <input id="perfil-docente-ingreso" type="date" disabled />
+                </div>
+              </div>
+            </div>
+            <aside class="foto-perfil-docente">
+              <h3>Fotografía</h3>
+              <div class="marco-foto-docente">
+                <img id="foto-perfil-docente" class="oculto" alt="Fotografía de perfil del docente" />
+                <span id="marcador-foto-docente" aria-hidden="true">Foto</span>
+              </div>
+              <label for="archivo-foto-perfil-docente" class="boton-secundario boton-subir-foto oculto" id="etiqueta-subir-foto">
+                Subir o actualizar foto
+              </label>
+              <input id="archivo-foto-perfil-docente" class="oculto" type="file" accept="image/png,image/jpeg,image/webp" disabled />
+              <small>JPG, PNG o WEBP (máximo 2 MB)</small>
+            </aside>
+            <div class="acciones-perfil-docente oculto" id="acciones-perfil-docente">
+              <button type="submit" id="boton-guardar-perfil-docente" class="boton-guardar-catalogo">Guardar cambios</button>
+              <button type="button" id="boton-cancelar-perfil-docente" class="boton-secundario">Cancelar</button>
+            </div>
+            <p id="estado-perfil-docente" class="estado-perfil-docente" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </div>
+
+      <div id="modulo-mis-secciones" class="modulo oculto">
+        <section class="tarjeta tarjeta-tabla">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2>Lista de Clases</h2>
+              <p id="contador-mis-secciones" class="descripcion-tarjeta"></p>
+            </div>
+          </div>
+          <div class="contenedor-tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Asignatura</th>
+                  <th>Sección</th>
+                  <th>Horario</th>
+                  <th>Aula</th>
+                  <th>Matriculados</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo-tabla-mis-secciones"></tbody>
+            </table>
+          </div>
+          <p id="texto-mis-secciones-estado" class="texto-vacio oculto"></p>
+        </section>
+
+      </div>
+
+      <div id="modulo-calificaciones-docente" class="modulo oculto">
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2>Notas de Alumnos</h2>
+              <p class="descripcion-tarjeta">Seleccione una clase para consultar y editar sus parciales.</p>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="selector-seccion-docente">Sección</label>
+            <select id="selector-seccion-docente">
+              <option value="">Seleccione una sección</option>
+            </select>
+          </div>
+          <button type="button" class="boton-secundario boton-abrir-notas-seccion" id="boton-abrir-notas-seccion" disabled>
+            Abrir notas de la clase
+          </button>
+          <p id="texto-seleccion-notas" class="texto-vacio" role="status" aria-live="polite"></p>
+        </section>
+      </div>
+
+      <div id="modulo-estudiantes-docente" class="modulo oculto">
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2>Listados de Alumnos</h2>
+              <p class="descripcion-tarjeta">Consulte los alumnos matriculados en una de sus secciones del período activo.</p>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="selector-estudiantes-docente">Sección</label>
+            <select id="selector-estudiantes-docente">
+              <option value="">Seleccione una sección</option>
+            </select>
+          </div>
+        </section>
+        <section id="detalle-estudiantes-docente" class="tarjeta tarjeta-tabla oculto">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2 id="titulo-listado-estudiantes-docente">Estudiantes de la sección</h2>
+              <p id="contador-listado-estudiantes-docente" class="descripcion-tarjeta"></p>
+            </div>
+          </div>
+          <div class="contenedor-tabla">
+            <table>
+              <thead><tr><th>Cuenta</th><th>Nombre completo</th><th>Correo electrónico</th><th>Carrera</th></tr></thead>
+              <tbody id="cuerpo-estudiantes-docente"></tbody>
+            </table>
+          </div>
+          <p id="estado-estudiantes-docente" class="texto-vacio oculto"></p>
+        </section>
+      </div>
+
+      <div id="modulo-detalle-clase-docente" class="modulo oculto">
+        <section class="tarjeta detalle-clase">
+          <div class="encabezado-tarjeta">
+            <div>
+              <p class="etiqueta">DETALLE DE CLASE</p>
+              <h2 id="titulo-estudiantes-seccion">Seleccione una clase</h2>
+              <p id="contador-mis-estudiantes" class="descripcion-tarjeta"></p>
+            </div>
+          </div>
+          <nav class="pestanas-clase" aria-label="Secciones del detalle de clase">
+            <button type="button" class="pestana-clase activa" data-pestana-clase="matricula" aria-current="page">Matrícula</button>
+            <button type="button" class="pestana-clase" data-pestana-clase="asistencia">Asistencia</button>
+            <button type="button" class="pestana-clase" data-pestana-clase="notas">Notas</button>
+          </nav>
+
+          <section class="panel-pestana-clase" data-panel-clase="matricula">
+            <div class="encabezado-tarjeta">
+              <div>
+                <h3>Alumnos matriculados</h3>
+                <p id="estado-matricula-clase" class="descripcion-tarjeta"></p>
+              </div>
+            </div>
+            <div class="contenedor-tabla">
+              <table>
+                <thead><tr><th>Cuenta</th><th>Nombre completo</th><th>Correo electrónico</th><th>Carrera</th></tr></thead>
+                <tbody id="cuerpo-matricula-clase"></tbody>
+              </table>
+            </div>
+            <p id="mensaje-matricula-clase" class="texto-vacio oculto" role="status"></p>
+          </section>
+
+          <section class="panel-pestana-clase oculto" data-panel-clase="asistencia">
+            <div class="encabezado-tarjeta">
+              <div>
+                <h3>Asistencia por sesión</h3>
+                <p class="descripcion-tarjeta">Cree una sesión por fecha y marque el estado de cada alumno.</p>
+              </div>
+            </div>
+            <form id="formulario-sesion-asistencia" class="formulario-asistencia">
+              <div class="campo">
+                <label for="fecha-sesion-asistencia">Fecha de sesión</label>
+                <input id="fecha-sesion-asistencia" type="date" required />
+              </div>
+              <button type="submit" class="boton-primario" id="boton-crear-sesion-asistencia">Crear sesión</button>
+            </form>
+            <div class="campo selector-sesion-asistencia">
+              <label for="selector-sesion-asistencia">Sesión registrada</label>
+              <select id="selector-sesion-asistencia">
+                <option value="">Seleccione una fecha</option>
+              </select>
+            </div>
+            <div class="contenedor-tabla">
+              <table>
+                <thead><tr><th>Cuenta</th><th>Nombre completo</th><th>Estado de asistencia</th></tr></thead>
+                <tbody id="cuerpo-asistencia-clase"></tbody>
+              </table>
+            </div>
+            <div class="acciones-asistencia">
+              <button type="button" class="boton-primario" id="boton-guardar-asistencia" disabled>Guardar asistencia</button>
+              <p id="mensaje-asistencia-clase" class="texto-vacio" role="status" aria-live="polite"></p>
+            </div>
+          </section>
+
+          <section class="panel-pestana-clase oculto" data-panel-clase="notas">
+            <div class="encabezado-tarjeta">
+              <div>
+                <h3>Matriz de calificaciones</h3>
+                <p class="descripcion-tarjeta">Registre los tres parciales para cada alumno de esta clase.</p>
+              </div>
+            </div>
+            <div class="contenedor-tabla">
+              <table class="matriz-calificaciones">
+                <thead>
+                  <tr>
+                    <th>Cuenta</th><th>Estudiante</th><th>Correo</th>
+                    <th>Parcial 1</th><th>Parcial 2</th><th>Parcial 3</th>
+                    <th>Nota Final</th><th>Estado</th><th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="cuerpo-tabla-mis-estudiantes"></tbody>
+              </table>
+            </div>
+            <p id="texto-mis-estudiantes-estado" class="texto-vacio oculto" role="status"></p>
+          </section>
+        </section>
+      </div>
+
+      <!-- ===================== PANEL DEL ADMINISTRADOR ===================== -->
+      <div id="modulo-estudiantes" class="modulo">
+
+      <section class="tarjeta tarjeta-formulario">
+        <div class="encabezado-tarjeta">
+          <h2 id="titulo-formulario">Nuevo estudiante</h2>
+        </div>
+
+        <form id="formulario-estudiante" class="rejilla-formulario">
+          <input type="hidden" id="estudiante-id" />
+
+          <div class="campo">
+            <label for="estudiante-nombres">Nombres</label>
+            <input id="estudiante-nombres" required minlength="2" maxlength="80" />
+          </div>
+          <div class="campo">
+            <label for="estudiante-apellidos">Apellidos</label>
+            <input id="estudiante-apellidos" required minlength="2" maxlength="80" />
+          </div>
+
+          <div class="campo">
+            <label for="estudiante-cuenta">Número de cuenta</label>
+            <input id="estudiante-cuenta" required minlength="5" maxlength="20" placeholder="20261005" />
+          </div>
+          <div class="campo">
+            <label for="estudiante-correo">Correo</label>
+            <input id="estudiante-correo" type="email" required placeholder="nombre@universidad.edu" />
+          </div>
+
+          <div class="campo">
+            <label for="estudiante-telefono">Teléfono (opcional)</label>
+            <input id="estudiante-telefono" maxlength="25" placeholder="9999-0000" />
+          </div>
+          <div class="campo">
+            <label for="estudiante-nacimiento">Fecha de nacimiento</label>
+            <input id="estudiante-nacimiento" type="date" required />
+          </div>
+
+          <div class="campo">
+            <label for="estudiante-carrera">Carrera</label>
+            <select id="estudiante-carrera" required></select>
+          </div>
+          <div class="campo">
+            <label for="estudiante-estado">Estado</label>
+            <select id="estudiante-estado">
+              <option value="ACTIVO">Activo</option>
+              <option value="INACTIVO">Inactivo</option>
+              <option value="GRADUADO">Graduado</option>
+            </select>
+          </div>
+
+          <div class="acciones-formulario">
+            <button type="submit" id="boton-guardar-estudiante">Guardar estudiante</button>
+            <button type="button" id="boton-cancelar-edicion" class="boton-secundario oculto">
+              Cancelar edición
+            </button>
+          </div>
+        </form>
+        <p id="mensaje-formulario" class="mensaje-error" aria-live="polite"></p>
+      </section>
+
+      <section class="tarjeta tarjeta-tabla">
+        <div class="encabezado-tarjeta">
+          <h2>Estudiantes</h2>
+          <input
+            id="campo-buscar"
+            type="search"
+            placeholder="Buscar por nombre, cuenta o correo..."
+          />
+        </div>
+
+        <div class="contenedor-tabla">
+          <table>
+            <thead>
+              <tr>
+                <th>Cuenta</th>
+                <th>Nombre completo</th>
+                <th>Correo</th>
+                <th>Carrera</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-tabla-estudiantes"></tbody>
+          </table>
+        </div>
+        <p id="texto-sin-resultados" class="texto-vacio oculto">
+          No se encontraron estudiantes con ese criterio.
+        </p>
+      </section>
+
+      </div>
+
+      <div id="modulo-docentes" class="modulo oculto">
+
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2 id="titulo-formulario-docente">Registrar docente</h2>
+              <p class="descripcion-tarjeta">Los campos marcados con * son obligatorios. El ID lo genera la API.</p>
+            </div>
+          </div>
+
+          <div id="alerta-docente" class="alerta oculto" role="alert" aria-live="polite"></div>
+
+          <form id="formulario-docente" class="rejilla-formulario" novalidate>
+            <input type="hidden" id="docente-id" />
+
+            <div class="campo">
+              <label for="docente-numero">Número de empleado *</label>
+              <input id="docente-numero" maxlength="20" placeholder="D-1001" autocomplete="off" />
+            </div>
+            <div class="campo">
+              <label for="docente-correo">Correo electrónico *</label>
+              <input id="docente-correo" type="email" maxlength="120" placeholder="docente@universidad.edu" autocomplete="off" />
+            </div>
+            <div class="campo">
+              <label for="docente-clave">Contraseña de acceso <span id="etiqueta-clave-docente">(opcional; se usará la contraseña inicial estándar)</span></label>
+              <input id="docente-clave" type="password" minlength="8" maxlength="100" autocomplete="new-password" placeholder="Vacío: password.docente" />
+            </div>
+
+            <div class="campo">
+              <label for="docente-nombres">Nombres *</label>
+              <input id="docente-nombres" maxlength="80" autocomplete="off" />
+            </div>
+            <div class="campo">
+              <label for="docente-apellidos">Apellidos *</label>
+              <input id="docente-apellidos" maxlength="80" autocomplete="off" />
+            </div>
+
+            <div class="campo">
+              <label for="docente-especialidad">Especialidad *</label>
+              <input id="docente-especialidad" maxlength="120" placeholder="Ingeniería de Software" autocomplete="off" />
+            </div>
+            <div class="campo">
+              <label for="docente-estado">Estado *</label>
+              <select id="docente-estado">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+              </select>
+            </div>
+
+            <div class="acciones-formulario">
+              <button type="submit" id="boton-guardar-docente">Registrar docente</button>
+              <button type="button" id="boton-limpiar-docente" class="boton-secundario">Limpiar formulario</button>
+              <button type="button" id="boton-cancelar-edicion-docente" class="boton-secundario oculto">
+                Cancelar edición
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="tarjeta tarjeta-tabla">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2>Docentes registrados</h2>
+              <p id="contador-docentes" class="descripcion-tarjeta"></p>
+            </div>
+            <div class="acciones-barra">
+              <input
+                id="docente-buscar"
+                class="campo-busqueda"
+                type="search"
+                placeholder="Buscar por número, nombre o especialidad..."
+              />
+              <button type="button" id="boton-recargar-docentes" class="boton-secundario">Recargar</button>
+            </div>
+          </div>
+
+          <div class="contenedor-tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>N.º empleado</th>
+                  <th>Nombre completo</th>
+                  <th>Correo</th>
+                  <th>Especialidad</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo-tabla-docentes"></tbody>
+            </table>
+          </div>
+          <p id="texto-docentes-estado" class="texto-vacio oculto"></p>
+        </section>
+
+      </div>
+
+      <div id="modulo-asignaturas" class="modulo oculto">
+
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2 id="titulo-formulario-asignatura">Registrar asignatura</h2>
+              <p class="descripcion-tarjeta">Los campos marcados con * son obligatorios. El ID lo genera la API.</p>
+            </div>
+          </div>
+
+          <div id="alerta-asignatura" class="alerta oculto" role="alert" aria-live="polite"></div>
+
+          <form id="formulario-asignatura" class="rejilla-formulario" novalidate>
+            <input type="hidden" id="asignatura-id" />
+
+            <div class="campo">
+              <label for="asignatura-codigo">Código *</label>
+              <input id="asignatura-codigo" maxlength="15" placeholder="MAT-101" autocomplete="off" />
+            </div>
+            <div class="campo">
+              <label for="asignatura-nombre">Nombre *</label>
+              <input id="asignatura-nombre" maxlength="120" placeholder="Matemática I" autocomplete="off" />
+            </div>
+
+            <div class="campo">
+              <label for="asignatura-unidades">Unidades valorativas (1 a 8) *</label>
+              <input id="asignatura-unidades" type="number" min="1" max="8" step="1" placeholder="4" autocomplete="off" />
+            </div>
+            <div class="campo">
+              <label for="asignatura-carreras-boton">Carreras *</label>
+              <div class="selector-carreras" id="selector-carreras-asignatura">
+                <button
+                  type="button"
+                  class="selector-carreras-boton"
+                  id="asignatura-carreras-boton"
+                  aria-expanded="false"
+                  aria-controls="asignatura-carreras-opciones"
+                  aria-describedby="ayuda-asignatura-carreras"
+                  aria-required="true"
+                >
+                  <span id="asignatura-carreras-resumen">Seleccione una o varias carreras</span>
+                  <span class="selector-carreras-flecha" aria-hidden="true"></span>
+                </button>
+                <div class="selector-carreras-opciones oculto" id="asignatura-carreras-opciones"></div>
+              </div>
+              <small id="ayuda-asignatura-carreras">Puede seleccionar varias carreras.</small>
+            </div>
+
+            <div class="campo">
+              <label for="asignatura-requisito">Asignatura requisito (opcional)</label>
+              <select id="asignatura-requisito">
+                <option value="">Sin requisito</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="asignatura-estado">Estado *</label>
+              <select id="asignatura-estado">
+                <option value="ACTIVO">ACTIVO</option>
+                <option value="INACTIVO">INACTIVO</option>
+              </select>
+            </div>
+
+            <div class="acciones-formulario">
+              <button type="submit" id="boton-guardar-asignatura">Registrar asignatura</button>
+              <button type="button" id="boton-limpiar-asignatura" class="boton-secundario">Limpiar formulario</button>
+              <button type="button" id="boton-cancelar-edicion-asignatura" class="boton-secundario oculto">
+                Cancelar edición
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <section class="tarjeta tarjeta-tabla">
+          <div class="encabezado-tarjeta">
+            <div>
+              <h2>Asignaturas registradas</h2>
+              <p id="contador-asignaturas" class="descripcion-tarjeta"></p>
+            </div>
+            <div class="acciones-barra">
+              <input
+                id="asignatura-buscar"
+                class="campo-busqueda"
+                type="search"
+                placeholder="Buscar por código o nombre..."
+              />
+              <button type="button" id="boton-recargar-asignaturas" class="boton-secundario">Recargar</button>
+            </div>
+          </div>
+
+          <div class="contenedor-tabla">
+            <table>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Nombre</th>
+                  <th>Unidades val.</th>
+                  <th>Carrera</th>
+                  <th>Requisito</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo-tabla-asignaturas"></tbody>
+            </table>
+          </div>
+          <p id="texto-asignaturas-estado" class="texto-vacio oculto"></p>
+        </section>
+
+      </div>
+
+      <div id="modulo-carreras" class="modulo oculto">
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta"><h2 id="titulo-formulario-carreras">Nueva carrera</h2></div>
+          <form class="rejilla-formulario formulario-catalogo" data-catalogo="carreras">
+            <input type="hidden" name="id" />
+            <div class="campo"><label for="carrera-codigo">Código</label><input id="carrera-codigo" name="codigo" required minlength="2" maxlength="10" /></div>
+            <div class="campo"><label for="carrera-nombre">Nombre</label><input id="carrera-nombre" name="nombre" required minlength="4" maxlength="120" /></div>
+            <div class="campo"><label for="carrera-duracion">Duración (años)</label><input id="carrera-duracion" name="duracion_anios" type="number" min="1" max="10" step="1" required /></div>
+            <div class="campo"><label class="campo-checkbox" for="carrera-activo"><input id="carrera-activo" name="activo" type="checkbox" checked /> Activa</label></div>
+            <div class="acciones-formulario"><button type="submit" class="boton-guardar-catalogo">Guardar carrera</button><button type="button" class="boton-secundario boton-cancelar-catalogo oculto">Cancelar edición</button></div>
+          </form>
+          <p class="mensaje-catalogo mensaje-error" aria-live="polite"></p>
+        </section>
+        <section class="tarjeta tarjeta-tabla"><div class="encabezado-tarjeta"><h2>Carreras</h2></div><div class="contenedor-tabla"><table><thead><tr><th>Código</th><th>Nombre</th><th>Duración</th><th>Estado</th><th>Acciones</th></tr></thead><tbody class="cuerpo-catalogo"></tbody></table></div><p class="texto-vacio oculto"></p></section>
+      </div>
+
+      <div id="modulo-periodos" class="modulo oculto">
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta"><h2 id="titulo-formulario-periodos">Nuevo período</h2></div>
+          <form class="rejilla-formulario formulario-catalogo" data-catalogo="periodos">
+            <input type="hidden" name="id" />
+            <div class="campo"><label for="periodo-anio">Año</label><input id="periodo-anio" name="anio" type="number" min="2020" max="2100" step="1" required /></div>
+            <div class="campo"><label for="periodo-numero">Número (1 a 4)</label><input id="periodo-numero" name="numero" type="number" min="1" max="4" step="1" required /></div>
+            <div class="campo"><label for="periodo-inicio">Fecha de inicio</label><input id="periodo-inicio" name="fecha_inicio" type="date" required /></div>
+            <div class="campo"><label for="periodo-fin">Fecha de fin</label><input id="periodo-fin" name="fecha_fin" type="date" required /></div>
+            <div class="campo"><label class="campo-checkbox" for="periodo-activo"><input id="periodo-activo" name="activo" type="checkbox" /> Activo</label></div>
+            <div class="acciones-formulario"><button type="submit" class="boton-guardar-catalogo">Guardar período</button><button type="button" class="boton-secundario boton-cancelar-catalogo oculto">Cancelar edición</button></div>
+          </form>
+          <p class="mensaje-catalogo mensaje-error" aria-live="polite"></p>
+        </section>
+        <section class="tarjeta tarjeta-tabla"><div class="encabezado-tarjeta"><h2>Períodos académicos</h2></div><div class="contenedor-tabla"><table><thead><tr><th>Período</th><th>Inicio</th><th>Fin</th><th>Estado</th><th>Acciones</th></tr></thead><tbody class="cuerpo-catalogo"></tbody></table></div><p class="texto-vacio oculto"></p></section>
+      </div>
+
+      <div id="modulo-aulas" class="modulo oculto">
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta"><h2 id="titulo-formulario-aulas">Nueva aula</h2></div>
+          <form class="rejilla-formulario formulario-catalogo" data-catalogo="aulas">
+            <input type="hidden" name="id" />
+            <div class="campo"><label for="aula-codigo">Código</label><input id="aula-codigo" name="codigo" required minlength="2" maxlength="20" /></div>
+            <div class="campo"><label for="aula-edificio">Edificio</label><input id="aula-edificio" name="edificio" required minlength="2" maxlength="80" /></div>
+            <div class="campo"><label for="aula-capacidad">Capacidad</label><input id="aula-capacidad" name="capacidad" type="number" min="1" max="200" step="1" required /></div>
+            <div class="campo"><label class="campo-checkbox" for="aula-activo"><input id="aula-activo" name="activo" type="checkbox" checked /> Activa</label></div>
+            <div class="acciones-formulario"><button type="submit" class="boton-guardar-catalogo">Guardar aula</button><button type="button" class="boton-secundario boton-cancelar-catalogo oculto">Cancelar edición</button></div>
+          </form>
+          <p class="mensaje-catalogo mensaje-error" aria-live="polite"></p>
+        </section>
+        <section class="tarjeta tarjeta-tabla"><div class="encabezado-tarjeta"><h2>Aulas</h2></div><div class="contenedor-tabla"><table><thead><tr><th>Código</th><th>Edificio</th><th>Capacidad</th><th>Estado</th><th>Acciones</th></tr></thead><tbody class="cuerpo-catalogo"></tbody></table></div><p class="texto-vacio oculto"></p></section>
+      </div>
+
+      <div id="modulo-administradores" class="modulo oculto">
+        <section class="tarjeta tarjeta-formulario">
+          <div class="encabezado-tarjeta"><h2 id="titulo-formulario-administrador">Nueva cuenta de administrador</h2></div>
+          <form id="formulario-administrador" class="rejilla-formulario">
+            <input id="administrador-id" type="hidden" />
+            <div class="campo"><label for="administrador-usuario">Usuario</label><input id="administrador-usuario" required minlength="3" maxlength="120" /></div>
+            <div class="campo"><label for="administrador-nombre">Nombre completo</label><input id="administrador-nombre" required minlength="2" maxlength="120" /></div>
+            <div class="campo"><label for="administrador-email">Correo electrónico</label><input id="administrador-email" type="email" required maxlength="120" /></div>
+            <div class="campo"><label class="campo-checkbox" for="administrador-activo"><input id="administrador-activo" type="checkbox" checked /> Cuenta activa</label></div>
+            <div class="acciones-formulario">
+              <button id="boton-guardar-administrador" type="submit">Crear administrador</button>
+              <button id="boton-cancelar-administrador" class="boton-secundario oculto" type="button">Cancelar edición</button>
+            </div>
+          </form>
+          <p id="mensaje-administrador" class="mensaje-error" aria-live="polite"></p>
+        </section>
+        <section class="tarjeta tarjeta-tabla">
+          <div class="encabezado-tarjeta"><h2>Cuentas de administradores</h2></div>
+          <div class="contenedor-tabla">
+            <table>
+              <thead><tr><th>Usuario</th><th>Nombre</th><th>Correo</th><th>Estado</th><th>Primer ingreso</th><th>Acciones</th></tr></thead>
+              <tbody id="cuerpo-tabla-administradores"></tbody>
+            </table>
+          </div>
+          <p id="texto-administradores-estado" class="texto-vacio oculto"></p>
+        </section>
+      </div>
+    </main>
+  </section>
+
+  <script src="/auth.js?v=8"></script>
+  <script src="/menu-admin.js?v=6"></script>
+  <script src="/admin-catalogos.js?v=2"></script>
+  <script src="/app.js?v=17"></script>
+</body>
+</html>

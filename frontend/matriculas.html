@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matrículas · Sistema Académico</title>
+  <link rel="stylesheet" href="/styles.css?v=10" />
+</head>
+<body>
+
+  <!-- Esta página requiere sesión iniciada en index.html; matriculas.js
+       redirige automáticamente si no hay un usuario guardado. -->
+  <section id="vista-dashboard" class="vista vista-dashboard">
+    <nav class="menu-principal" aria-label="Menú principal">
+    </nav>
+
+    <header class="barra-superior">
+      <div>
+        <p class="etiqueta">SISTEMA ACADÉMICO</p>
+        <h1>Matrículas</h1>
+      </div>
+      <div class="acciones-barra acciones-filtros-matriculas">
+        <span id="chip-usuario" class="chip-usuario"></span>
+        <button type="button" id="boton-actualizar" class="boton-secundario">Actualizar</button>
+        <button type="button" id="boton-salir" class="boton-secundario">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <main class="contenido">
+
+      <section class="tarjeta tarjeta-formulario">
+        <div class="encabezado-tarjeta">
+          <div>
+            <h2 id="titulo-formulario-matricula">Nueva matrícula</h2>
+            <p class="descripcion-tarjeta">
+              Seleccione el estudiante y la sección abierta. La API valida
+              cupo, requisitos, choques de horario y máximo de UV.
+            </p>
+          </div>
+        </div>
+
+        <div id="alerta-matricula" class="alerta oculto" role="alert" aria-live="polite"></div>
+
+        <form id="formulario-matricula" class="rejilla-formulario" novalidate>
+          <div class="campo">
+            <label for="matricula-estudiante">Estudiante *</label>
+            <select id="matricula-estudiante">
+              <option value="">Seleccione un estudiante</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="matricula-seccion">Sección abierta *</label>
+            <select id="matricula-seccion">
+              <option value="">Seleccione una sección</option>
+            </select>
+          </div>
+
+          <div class="acciones-formulario">
+            <button type="submit" id="boton-guardar-matricula">Registrar matrícula</button>
+            <button type="button" id="boton-limpiar-matricula" class="boton-secundario">Limpiar formulario</button>
+            <button type="button" id="boton-cancelar-edicion-matricula" class="boton-secundario oculto">Cancelar edición</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="tarjeta tarjeta-tabla tarjeta-tabla-matriculas">
+        <div class="encabezado-tarjeta">
+          <div>
+            <h2>Matrículas registradas</h2>
+            <p id="contador-matriculas" class="descripcion-tarjeta"></p>
+          </div>
+          <div class="acciones-barra">
+            <select id="matricula-filtro-estado" class="campo-busqueda">
+              <option value="">Todos los estados</option>
+              <option value="MATRICULADA">Matriculada</option>
+              <option value="CANCELADA">Cancelada</option>
+            </select>
+            <input
+              id="matricula-buscar"
+              class="campo-busqueda"
+              type="search"
+              placeholder="Buscar por estudiante o asignatura..."
+            />
+            <button type="button" id="boton-recargar-matriculas" class="boton-secundario">Recargar</button>
+          </div>
+        </div>
+
+        <div class="contenedor-tabla contenedor-tabla-matriculas">
+          <table class="tabla-matriculas">
+            <colgroup>
+              <col class="col-matricula-estudiante" />
+              <col class="col-matricula-cuenta" />
+              <col class="col-matricula-asignatura" />
+              <col class="col-matricula-seccion" />
+              <col class="col-matricula-periodo" />
+              <col class="col-matricula-fecha" />
+              <col class="col-matricula-estado" />
+              <col class="col-matricula-acciones" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>Cuenta</th>
+                <th>Asignatura</th>
+                <th>Sección</th>
+                <th>Período</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpo-tabla-matriculas"></tbody>
+          </table>
+        </div>
+        <p id="texto-matriculas-estado" class="texto-vacio oculto"></p>
+      </section>
+
+    </main>
+  </section>
+
+  <script src="/auth.js?v=6"></script>
+  <script src="/menu-admin.js?v=3"></script>
+  <script src="/matriculas.js?v=8"></script>
+</body>
+</html>
