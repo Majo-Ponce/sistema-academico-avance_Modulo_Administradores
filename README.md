@@ -225,3 +225,17 @@ La API ya permite peticiones desde:
 
 Estas son las direcciones habituales de Vite. Así, en la siguiente etapa se
 puede crear un frontend en Vue o React sin cambiar el backend.
+
+
+## Documentación de Endpoints Principales
+
+### Crear una nueva asignatura
+- **Método:** `POST`
+- **Ruta:** `/asignaturas/`
+- **Cuerpo esperado (JSON):**
+  ```json
+  {
+    "codigo": "SIS-301",
+    "nombre": "Programación III",
+    "unidades_valorativas": 4
+  }
