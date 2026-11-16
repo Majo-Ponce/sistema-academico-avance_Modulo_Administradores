@@ -1,5 +1,6 @@
 import base64
 import binascii
+import re
 from datetime import date
 from typing import Literal
 from pydantic import (
@@ -110,6 +111,26 @@ class EstudianteEntrada(BaseModel):
     def validar_fecha_nacimiento(cls, valor: date) -> date:
         if valor >= date.today():
             raise ValueError("La fecha de nacimiento debe ser anterior a hoy")
+        return valor
+
+    @field_validator("nombres", "apellidos")
+    @classmethod
+    def validar_nombre(cls, valor: str) -> str:
+        valor = valor.strip()
+        if len(valor) < 2:
+            raise ValueError("Debe tener al menos 2 letras")
+        if not re.fullmatch(r"[A-Za-zÁÉÍÓÚáéíóúÑñÜü' .-]+", valor):
+            raise ValueError("Solo puede contener letras, espacios, apóstrofes y guiones")
+        return valor
+
+    @field_validator("telefono")
+    @classmethod
+    def validar_telefono(cls, valor: str | None) -> str | None:
+        if valor is None or valor.strip() == "":
+            return None
+        valor = valor.strip()
+        if not re.fullmatch(r"\+?[0-9][0-9 -]{6,23}", valor):
+            raise ValueError("El teléfono solo puede tener números, espacios y guiones (7 a 24 dígitos)")
         return valor
 
 
