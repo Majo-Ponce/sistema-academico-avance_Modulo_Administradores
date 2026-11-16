@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.database import inicializar_base_datos
 from app.dependencies import solo_admin
+from app.errores import registrar_manejadores_error
 from app.routers import (
     asignaturas,
     auth,
@@ -39,6 +40,9 @@ app = FastAPI(
     version="2.0.0",
     lifespan=lifespan,
 )
+
+# Respuestas de error con un formato uniforme y en español (ver app/errores.py).
+registrar_manejadores_error(app)
 
 # Permite conectar más adelante un frontend creado con Vite/Vue o React.
 app.add_middleware(
